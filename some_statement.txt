@@ -1,0 +1,26 @@
+1. Alpha.py contains two basic examples, one with ./try.png
+
+2. Beta.py is a full-progress training script, with:
+	PreTrainedNet	--a simple network using features derived from pretrained AlexNet
+	transfer_data	--transfer bson data to pictures and label features (1 x len(data)) vector
+	gen_data & gen_data_batch
+					--a batch generator
+	training		--a training scope with MomentumOptimizer (see details in its source code)
+
+3. When training with real dataset, the following parameters are supposed to be changed:
+	BATCH_SIZE		--500 with AlexNet, in general
+	LEARNING_RATE	--0.01, 0.001, 0.0001 for different stages of finetuning.
+	CAT_NUM			--5720 for the overall dataset
+
+======================================================================================================
+4. Problems to be solved:
+	(1) I'm not sure whether this batching process is efficient enough with huge data.
+	(2) I'm not sure the meaning of parameter RANGE......!!!!!!!!!
+	(3) This training script is only a single-epoch(*) training, and should be optimized, achieving the following requirements:
+		in each epoch, feedback the error rates, momentun(*), and training time. Since the server has no GUI, we need to retrive these data from the server and draw a real-time monitoring figure on our own laptop. This is a tough task, I suppose...... But at least we have to retrievve all those feedback data and draw a figure.
+
+5. Further development:
+	(1) perform a full-training process on the server, givingout an answer
+	(2) write a training script with ResNet50 (no pretrained model), perform a full-training process
+	(3) run other models as well (with pretrained model)
+	(4) some work should be done dealing with dataset preprocessing. Some argues that CD, Books are hard to train in the dataset, with relatively smaller sample size. Also, some says that training data doesn't cover all ids.......
